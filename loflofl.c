@@ -42,9 +42,10 @@ char* device_type(unsigned char class,
     return NULL;
 
   /* Find the subclass */
-  while (tmp->subs[n].value != NULL && tmp->subs[n].id != subclass)
+  while (tmp->subs != NULL && tmp->subs[n].value != NULL &&
+	 tmp->subs[n].id != subclass)
     n++;
-  if (tmp->subs[n].value == NULL)
+  if (tmp->subs == NULL || tmp->subs[n].value == NULL)
     {
       size = strlen(tmp->value) + 1;
       res = malloc(size);
@@ -53,9 +54,10 @@ char* device_type(unsigned char class,
     }
 
   /* Find the protocol */
-  while (tmp->subs[n].prots[m].value != NULL && tmp->subs[n].prots[m].id != protocol)
+  while (tmp->subs[n].prots != NULL && tmp->subs[n].prots[m].value != NULL &&
+	 tmp->subs[n].prots[m].id != protocol)
     m++;
-  if (tmp->subs[n].prots[m].value == NULL)
+  if (tmp->subs[n].prots == NULL || tmp->subs[n].prots[m].value == NULL)
     {
       size = strlen(tmp->value) + 2 + strlen(tmp->subs[n].value) + 1;
       res = malloc(size);
